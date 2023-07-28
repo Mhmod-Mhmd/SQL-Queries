@@ -5,7 +5,7 @@ select St_Id , st_fname , St_Age
 from Student
 where St_Age > 20
 order by st_age desc
-
+-- Exmp 1
 declare cur1 cursor
 for 
 	select St_Id , st_fname , St_Age
@@ -30,6 +30,7 @@ select * from Instructor
 select Ins_Name , salary 
 from Instructor 
 
+-- Exmp 2
 declare cur1 cursor 
 for
 	select salary 
@@ -58,7 +59,7 @@ while @@fetch_status=0
 close cur1
 deallocate cur1
 
-
+-- Exmp 3
 declare c cursor
 for select St_Fname
 	from Student
@@ -77,6 +78,7 @@ select @fullname
 close c
 deallocate c
 
+--Exmp 4
 declare c1 cursor
 for
 	select St_Fname
@@ -107,58 +109,3 @@ deallocate c1
 
 
 select * from student
-
---------------------------------------------------- lec 10 
---defaultly can't change primary key if it's identity cuz it's outo_incremental
---so we can use these two proprities to on or off the identity 
-set identity_insert table_name on; -- by default 
-set identity_insert table_name off;
-
--- to get the last id in the last qurery , use 
-select @@IDENTITY
--- to get the last id in the specific table , use
-select IDENT_CURRENT('person.addres')
-
-
----------------------------------------------
---typies of insert
---simple insert
---insert constructor ( insert multiple rows )
---insert based on select
---insert based on execute " in the stored procedure "
---bulk insert ( insert data from file )
---
-
-bulk insert test
-from 'E:\text.txt'
-with (fieldterminator = ',')
-
-
---------------------------------
---      snapshot database : 
--- can't update or delete from snapshot ,  it is read only database
--- point to the data in the database
--- can't run it in differnt server VS. Backup 
--- the physical file end by '.ss' extention 
-
-create database Bikestore_snap on
-(
-name = 'BikeStore' ,
-filename = 'E:\Bike_snap.ss'
-)
-as snapshot of BikeStore
-
-
-restore database BikeStore
-from database_snapshot = 'Bikestore_snap'
-
-
-------------
-
-
-
-
-
-
-
-
